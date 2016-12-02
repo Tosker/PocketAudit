@@ -1,0 +1,76 @@
+﻿<Window x:Class="SaleTool.CheckoutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaleTool"
+        mc:Ignorable="d"
+        Title="Checkout" Height="395" Width="375" Icon="Assets/greenblock.png">
+    <Grid Background="#FFFDFDFD">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="5">
+            <TextBlock Text="First Name" FontSize="20"/>
+            <TextBox Text="{Binding Transaction.ConsumerFirstName, Mode=OneWayToSource}" FontSize="16"/>
+            <TextBlock Text="Last Name" FontSize="20"/>
+            <TextBox Text="{Binding Transaction.ConsumerLastName, Mode=OneWayToSource}" FontSize="16"/>
+            <TextBlock Text="Billing Address" FontSize="20"/>
+            <TextBox Text="{Binding Transaction.BillingAddress, Mode=OneWayToSource}" FontSize="16"/>
+            <TextBlock Text="Shipping Address" FontSize="20"/>
+            <TextBox Text="{Binding Transaction.ShippingAddress, Mode=OneWayToSource}" FontSize="16"/>
+            <TextBlock Text="Phone #" FontSize="20"/>
+            <TextBox Text="{Binding Transaction.ConsumerPhoneNumber, Mode=OneWayToSource}" FontSize="16"/>
+            <TextBlock Text="Email" FontSize="20"/>
+            <TextBox Text="{Binding Transaction.ConsumerEmail, Mode=OneWayToSource}" FontSize="16"/>
+        </StackPanel>
+
+        <DockPanel Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2">
+            <DockPanel DockPanel.Dock="Left">
+                <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Left">
+                    <TextBlock Text="{Binding Sale.SubTotal, StringFormat=Sub Total: ${0}}"/>
+                    <TextBlock Text="{Binding Sale.Shipping, StringFormat=Shipping: ${0}}"/>
+                    <TextBlock Text="{Binding Sale.Tax, StringFormat=Tax: ${0}}"/>
+                    <TextBlock Text="{Binding Sale.Total, StringFormat=Total: ${0}}"/>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Right" Margin="10">
+                <Button Content="Finalize" Click="Finalize_Clicked" Command="{Binding FinalizeCommand}" CommandParameter="{Binding}"/>
+            </DockPanel>
+        </DockPanel>
+
+        <DockPanel Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <DockPanel DockPanel.Dock="Right">
+                <StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Payment Type" FontSize="20"/>
+                        <ComboBox x:Name="paymentCombo" ItemsSource="{Binding Source={local:EnumBindingSourceExtension {x:Type local:PaymentTypes}}}" SelectedValue="{Binding Transaction.PaymentType, Mode=TwoWay}" SelectionChanged="payment_Selected">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <StackPanel x:Name="paypalPanel" Visibility="Collapsed">
+                            <TextBlock Text="Transaction Id" FontSize="20"/>
+                            <TextBox Text="{Binding Transaction.PaymentNumber, Mode=OneWayToSource}" DockPanel.Dock="Bottom" x:Name="paypalBox" FontSize="16"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Tracking #" FontSize="20"/>
+                        <TextBox Text="{Binding Transaction.TrackingNumber, Mode=OneWayToSource}" DockPanel.Dock="Bottom" x:Name="trackingNumberBox" FontSize="16"/>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</Window>

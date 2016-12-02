@@ -1,0 +1,53 @@
+﻿<Window x:Class="SaleTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaleTool"
+        xmlns:viewmodels="clr-namespace:SaleTool.ViewModels"
+        xmlns:views="clr-namespace:SaleTool.Views"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="Sale Tool" Height="600" Width="925" Icon="Assets/greenblock.png">
+    <Window.Resources>
+        <DataTemplate x:Name="MerchandiseView" DataType="{x:Type viewmodels:MerchandiseViewModel}">
+            <views:MerchandiseView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="SalesView" DataType="{x:Type viewmodels:SalesViewModel}">
+            <views:SalesView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="ContactsView" DataType="{x:Type viewmodels:ContactsViewModel}">
+            <views:ContactsView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="HistoryView" DataType="{x:Type viewmodels:HistoryViewModel}">
+            <views:HistoryView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel>
+        <Grid DockPanel.Dock="Left" MinWidth="125" Background="#FFFDFDFD">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0">
+                <Label x:Name="clockLabel" FontSize="22" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.RowSpan="4" Grid.Column="0">
+                <Button Content="Merchandise" Height="50" Margin="2" Click="MenuButton_Merchandise_Clicked"/>
+                <Button Content="Sales" Height="50" Margin="2" Click="MenuButton_Sales_Clicked"/>
+                <Button Content="History" Height="50" Margin="2" Click="MenuButton_History_Clicked"/>
+                <Button Content="Contacts" Height="50" Margin="2" Click="MenuButton_Contacts_Clicked"/>
+            </StackPanel>
+        </Grid>
+
+        <ContentControl Content="{Binding}"></ContentControl>
+    </DockPanel>
+</Window>

@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="SaleTool.Views.HistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SaleTool.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">
+    <Grid Background="#FFFDFDFD">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+            <ListView ItemsSource="{Binding Transactions}" SelectionChanged="Transaction_Selected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="2" BorderThickness="0,0,0,1" BorderBrush="Black">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <DockPanel Grid.Row="0" Grid.Column="0">
+                                    <TextBlock Width="50" Text="{Binding Id}"/>
+                                    <StackPanel Margin="5">
+                                        <TextBlock Text="{Binding ConsumerName}" FontSize="16" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding ShortDate}" FontSize="16"/>
+                                        <TextBlock Text="{Binding Total, StringFormat=${0}}" FontSize="16"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+
+        <DockPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
+                    <TextBlock Text="Transaction Id"/>
+                    <TextBox x:Name="transactionIdBox" Text="{Binding SelectedTransaction.Id}" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+                    <TextBlock Text="Purchase Date"/>
+                    <TextBox x:Name="dateBox" Text="{Binding SelectedTransaction.ShortDate}" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1" Margin="5">
+                    <TextBlock Text="Payment Type"/>
+                    <TextBox x:Name="paymentBox" Text="{Binding SelectedTransaction.PaymentType}" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Grid.Column="1" Margin="5">
+                    <TextBlock Text="Payment Id"/>
+                    <TextBox Text="{Binding SelectedTransaction.PaymentNumber}" IsReadOnly="True"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Full Name"/>
+                    <TextBox x:Name="nameBox" Text="{Binding SelectedTransaction.ConsumerName}" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Email"/>
+                    <TextBox Text="{Binding SelectedTransaction.ConsumerEmail}" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Phone #"/>
+                    <TextBox x:Name="phoneNumberBox" Text="{Binding SelectedTransaction.ConsumerPhoneNumber}" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Billing Address"/>
+                    <TextBox x:Name="billingAddressBox" Text="{Binding SelectedTransaction.BillingAddress}" IsReadOnly="True"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="2" Margin="5">
+                    <TextBlock Text="Shipping Address"/>
+                    <TextBox x:Name="shippingAddressBox" Text="{Binding SelectedTransaction.ShippingAddress}" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="2" Margin="5">
+                    <TextBlock Text="Carrier"/>
+                    <TextBox x:Name="carrierBox" Text="{Binding SelectedTransaction.Carrier}" IsReadOnly="True"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="2" Margin="5">
+                    <TextBlock Text="Tracking #"/>
+                    <TextBox x:Name="trackingBox" Text="{Binding SelectedTransaction.TrackingNumber}" IsReadOnly="True"/>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>
